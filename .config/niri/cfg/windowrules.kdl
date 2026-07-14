@@ -1,0 +1,154 @@
+// window-rule {
+//  match is-floating=false
+//  open-maximized-to-edges true
+// }
+window-rule {
+  match app-id="kitty"
+  match app-id="shelly"
+  open-floating true
+  min-height 350
+  min-width 512
+}
+
+window-rule {
+  match app-id="flameshot"
+  open-fullscreen false
+  open-floating true
+}
+
+window-rule {
+  match is-focused=false
+  background-effect {
+    blur true
+    xray false
+  }
+  opacity 1.0;
+}
+// window-rule {
+//   match is-focused=true
+//   background-effect {
+//     blur true
+//     xray false
+//   }
+//   opacity 1.00;
+// }
+// window-rule {
+//   match app-id="dolphin"
+//   open-floating true
+//   opacity 1.00
+// }
+window-rule {
+  match title="Myth of Yggdrasil"
+  open-maximized true
+}
+window-rule {
+  match app-id="MythSharp.exe"
+  match app-id="Ragexe.exe"
+  match app-id="umu.exe"
+  match app-id="steam_app_0"
+  open-floating false
+  open-maximized true
+}
+
+window-rule {
+    match app-id="dev.zed.Zed"
+    // Forces Niri to clip to geometry correctly and allows transparency
+    background-effect {
+      blur true
+    }
+}
+
+window-rule {
+  match app-id="zen"
+  open-maximized-to-edges false
+}
+
+window-rule {
+    match title="^DevTools"
+    match title="^Developer Tools"
+    default-column-width { proportion 0.3; }
+    open-floating true
+    default-floating-position x=4 y=4 relative-to="bottom-right"
+}
+
+window-rule {
+    match app-id=r#"^org\.gnome\."#
+    draw-border-with-background false
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+window-rule {
+    match app-id=r#"^gnome-control-center$"#
+    match app-id=r#"^pavucontrol$"#
+    match app-id=r#"^nm-connection-editor$"#
+    default-column-width { proportion 0.5; }
+    open-floating false
+}
+window-rule {
+    match app-id=r#"^gnome-calculator$"#
+    match app-id=r#"^galculator$"#
+    match app-id=r#"^blueman-manager$"#
+    match app-id=r#"^org\.gnome\.Nautilus$"#
+    //match app-id=r#"^steam$"#
+    match app-id=r#"^xdg-desktop-portal$"#
+    open-floating true
+}
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
+    match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
+    draw-border-with-background false
+}
+window-rule {
+    match title="Kando Menu"
+    open-floating true
+    focus-ring { off; }
+    border { off; }
+    shadow { off; }
+}
+
+
+
+window-rule {
+  match app-id="steam"
+  //match title="^Friends List^"
+  //match title="^chat^"
+  exclude title="Steam"
+  open-floating true
+}
+// window-rule {
+//     match is-active=false
+//     opacity 1.0
+// }
+window-rule {
+    match title="^Picture in picture$"
+    match app-id="zoom"
+    open-floating true
+    default-floating-position x=4 y=4 relative-to="bottom-right"
+    opacity 1.0
+}
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+}
+window-rule {
+    match title="Kando Menu"
+    open-floating true
+    border { off; }
+    shadow { off; }
+}
+
+window-rule {
+    match title="Calculator"
+    open-floating true
+}
+
+window-rule {
+  match app-id="persepolis$"
+  open-floating true
+  default-column-width { proportion 0.5; }
+  default-floating-position x=4 y=4 relative-to="bottom-right"
+  max-height 200
+}

@@ -1,0 +1,23 @@
+//output "DP-1" {
+//  position x=0 y=0
+//  mode "1920x1080@60"
+//}
+
+output "eDP-1" {
+    // Uncomment this line to disable this output.
+    //off
+    // Scale is a floating-point number, but at the moment only integer values work.
+    scale 1.0
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    transform "normal"
+    // Resolution and, optionally, refresh rate of the output.
+    mode "1366x768@60.059"
+    // Position of the output in the global coordinate space.
+    position x=0 y=0
+}
+
+output "HDMI-A-1"{
+  scale 1.0
+  transform "normal"
+  mode "1920x1080@60"
+}

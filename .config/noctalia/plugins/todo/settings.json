@@ -1,0 +1,181 @@
+{
+  "todos": [
+    {
+      "id": 1778270661246,
+      "text": "HP FREITAS",
+      "completed": false,
+      "createdAt": "2026-05-08T20:04:21.246Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270649254,
+      "text": "MAXSEG",
+      "completed": false,
+      "createdAt": "2026-05-08T20:04:09.254Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270634201,
+      "text": "DEVEX",
+      "completed": false,
+      "createdAt": "2026-05-08T20:03:54.201Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270630728,
+      "text": "OPYT",
+      "completed": false,
+      "createdAt": "2026-05-08T20:03:50.728Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270655344,
+      "text": "CONNECT",
+      "completed": true,
+      "createdAt": "2026-05-08T20:04:15.344Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270676030,
+      "text": "PURO CÓDIGO",
+      "completed": true,
+      "createdAt": "2026-05-08T20:04:36.030Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779312922878,
+      "text": "Ajudar a fazer consulta SQL no SGE do SESI",
+      "completed": false,
+      "createdAt": "2026-05-20T21:35:22.878Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779312680656,
+      "text": "Emitir pedido do H P FREITAS",
+      "completed": false,
+      "createdAt": "2026-05-20T21:31:20.656Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779312639668,
+      "text": "Ajuda SESI com o Teams dos pais de alunos",
+      "completed": false,
+      "createdAt": "2026-05-20T21:30:39.668Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270712555,
+      "text": "Manutenção projetor SENAI 11361",
+      "completed": false,
+      "createdAt": "2026-05-08T20:05:12.555Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1778270595350,
+      "text": "Compuservice",
+      "completed": true,
+      "createdAt": "2026-05-08T20:03:15.350Z",
+      "pageId": 1,
+      "priority": "high",
+      "details": ""
+    },
+    {
+      "id": 1778270616277,
+      "text": "Clique Telecom Adalcineia",
+      "completed": true,
+      "createdAt": "2026-05-08T20:03:36.277Z",
+      "pageId": 1,
+      "priority": "high",
+      "details": ""
+    },
+    {
+      "id": 1778270638184,
+      "text": "DEVEX MOD",
+      "completed": true,
+      "createdAt": "2026-05-08T20:03:58.184Z",
+      "pageId": 2,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779363766733,
+      "text": "Clique Telecom Adalcineia ENLACE",
+      "completed": true,
+      "createdAt": "2026-05-21T11:42:46.733Z",
+      "pageId": 1,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779312666634,
+      "text": "Emitir pedido da ADALCINEIA (GX / GNEX)",
+      "completed": true,
+      "createdAt": "2026-05-20T21:31:06.634Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    },
+    {
+      "id": 1779312649002,
+      "text": "Abrir requisição do A. DA COSTA (ANDERSON)",
+      "completed": true,
+      "createdAt": "2026-05-20T21:30:49.002Z",
+      "pageId": 3,
+      "priority": "medium",
+      "details": ""
+    }
+  ],
+  "pages": [
+    {
+      "id": 0,
+      "name": "Abrir Requisiçao"
+    },
+    {
+      "id": 1,
+      "name": "Enviar Pedidos"
+    },
+    {
+      "id": 2,
+      "name": "Receber Notas"
+    },
+    {
+      "id": 3,
+      "name": "Outros"
+    }
+  ],
+  "current_page_id": 3,
+  "count": 16,
+  "completedCount": 8,
+  "showCompleted": true,
+  "showBackground": true,
+  "isExpanded": false,
+  "useCustomColors": false,
+  "priorityColors": {
+    "high": "#f38ba8",
+    "medium": "#cba6f7",
+    "low": "#a3b4eb"
+  },
+  "exportPath": "~/Documents",
+  "exportFormat": "markdown",
+  "exportEmptySections": false
+}

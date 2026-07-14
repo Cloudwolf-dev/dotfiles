@@ -1,0 +1,7 @@
+[templates.zsh]
+input_path = "~/.config/noctalia/templates/zsh_prompt.zsh"
+output_path = "~/.cache/zsh_accent.zsh"
+
+[templates.zen]
+input_path = "~/.config/noctalia/templates/zen.css"
+output_path = "~/.cache/noctalia/zen-browser/zen-userChrome2.css"

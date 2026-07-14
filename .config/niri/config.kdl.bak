@@ -1,0 +1,315 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
+//
+//
+include "dms/outputs.kdl"
+include "dms/binds.kdl"
+include "dms/windowrules.kdl"
+include "dms/cursor.kdl"
+include "niri-animation-collection/animations/glitch_02.kdl"
+
+config-notification {
+    disable-failed
+}
+// Outputs from existing configuration
+
+//output "DP-1" {
+//  position x=0 y=0
+//  mode "1920x1080@60"
+//}
+
+output "eDP-1" {
+    // Uncomment this line to disable this output.
+    //off
+    // Scale is a floating-point number, but at the moment only integer values work.
+    scale 1.0
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    transform "normal"
+    // Resolution and, optionally, refresh rate of the output.
+    mode "1366x768@60"
+    // Position of the output in the global coordinate space.
+    position x=0 y=0
+}
+
+output "HDMI-A-1"{
+  scale 1.0
+  transform "normal"
+  mode "1920x1080@60"
+}
+
+
+gestures {
+  dnd-edge-view-scroll {
+    trigger-width 30
+    delay-ms 100
+    max-speed 1500
+  }
+  dnd-edge-workspace-switch {
+    trigger-height 100
+    max-speed 3000
+  }
+
+  hot-corners {
+    //off
+  }
+}
+
+// Input device configuration.
+// Find the full list of options on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+        }
+        numlock
+    }
+    touchpad {
+    }
+    mouse {
+    }
+    trackpoint {
+    }
+    tablet{
+      map-to-output "HDMI-A-1"
+      calibration-matrix 1.0 0.0 0.0 0.0 1.0 0.0
+    }
+  focus-follows-mouse
+}
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+// The built-in laptop monitor is usually called "eDP-1".
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+
+// Settings that influence how windows are positioned and sized.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
+layout {
+    // Set gaps around windows in logical pixels.
+    gaps 6
+ 
+    background-color "transparent"
+    // When to center a column when changing focus, options are:
+    // - "never", default behavior, focusing an off-screen column will keep at the left
+    //   or right edge of the screen.
+    // - "always", the focused column will always be centered.
+    // - "on-overflow", focusing a column will center it if it doesn't fit
+    //   together with the previously focused column.
+    center-focused-column "never"
+    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
+    preset-column-widths {
+        // Proportion sets the width as a fraction of the output width, taking gaps into account.
+        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
+        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
+        //proportion 0.33333
+        //proportion 0.5
+        //proportion 0.66667
+        proportion 0.25
+        proportion 0.33
+        proportion 0.5
+        proportion 0.66
+        proportion 0.75
+
+        // Fixed sets the width in logical pixels exactly.
+        // fixed 1920
+    }
+    // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
+    // preset-window-heights { }
+    // You can change the default width of the new windows.
+    default-column-width { proportion 1.0; }
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    // default-column-width {}
+    // By default focus ring and border are rendered as a solid background rectangle
+    // behind windows. That is, they will show up through semitransparent windows.
+    // This is because windows using client-side decorations can have an arbitrary shape.
+    //
+    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // Niri will draw focus ring and border *around* windows that agree to omit their
+    // client-side decorations.
+    //
+    // Alternatively, you can override it with a window rule called
+    // `draw-border-with-background`.
+    border {
+      off
+        width 1
+        active-color   "#c6a0f5"    // Neutral gray
+        inactive-color "#45475a"      // Light gray
+        urgent-color   "#cc4444"      // Softer red
+    }
+    focus-ring {
+        width 1
+        active-color   "#c6a0f6"      // Medium gray
+        inactive-color "#b7bdf8"      // Dark gray
+    }
+    shadow {
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+    struts {
+      top -4
+      bottom -1
+    }
+}
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+overview {
+    workspace-shadow {
+        off
+    }
+}
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+// This line starts waybar, a commonly used bar for Wayland compositors.
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+//spawn-at-startup "dms" "run"
+spawn-at-startup "time" "(zsh -i -c exit)"
+spawn-at-startup "bash" "-c" "XDG_MENU_PREFIX=plasma- kbuildsyscoca6 --noincremental"
+spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+environment {
+  XDG_CURRENT_DESKTOP "niri"
+  QT_QPA_PLATFORM "wayland;xcb"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+  QT_QPA_PLATFORMTHEME "qt6ct"
+  XDG_MENU_PREFIX "plasma-"
+  TERMINAL "kitty"
+}
+hotkey-overlay {
+    skip-at-startup
+}
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+//animations {
+//    workspace-switch {
+//        spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
+//    }
+//    window-open {
+//        duration-ms 150
+//        curve "ease-out-expo"
+//    }
+//
+//    //window-close {
+//    //    duration-ms 150
+//    //    curve "ease-out-quad"
+//    //}
+//    window-close {
+//        // I recommend giving this a slightly longer duration
+//        // so you can actually watch the pattern shift as it closes!
+//        duration-ms 600
+//
+//        custom-shader r#"
+//            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+//                // Keep the effect strictly inside the window bounds
+//                if (coords_geo.x < 0.0 || coords_geo.x > 1.0 ||
+//                    coords_geo.y < 0.0 || coords_geo.y > 1.0) {
+//                    return vec4(0.0);
+//                }
+//
+//                // 1. Recreate Shadertoy's 'fragCoord' (pixel coordinates)
+//                vec2 fragCoord = coords_geo.xy * size_geo.xy;
+//
+//                // 2. Simulate Shadertoy's 'iTime'
+//                // niri_clamped_progress goes from 1.0 to 0.0.
+//                // Multiplying it by 10.0 gives the pattern enough "time" to shift and animate.
+//                float iTime = (1.0 - niri_clamped_progress) * 10.0;
+//
+//                // 3. De-obfuscate the math.
+//                // The original used modf(), but spliting it into floor() and fract()
+//                // is much safer for Niri's underlying wgpu renderer.
+//                vec2 scaled_coord = fragCoord / vec2(6.0, 9.0);
+//                vec2 p = floor(scaled_coord);
+//                vec2 grid_uv = fract(scaled_coord);
+//
+//                // 4. Calculate the matrix index for the pattern
+//                int idx = int(length(p) / 9e-5 - iTime) & 1;
+//
+//                // 5. Apply the matrix logic
+//                vec2 mult = (idx == 0) ? vec2(6.0, 6.0) : vec2(10.0, 6.0);
+//
+//                // 6. Generate the green color channel just like the original
+//                vec4 color = vec4(0.0);
+//                color.g = 2.5 - length((grid_uv - 0.5) * mult);
+//                color *= 2.0 - color; // Adds the high-contrast lighting
+//
+//                // 7. Fix the Alpha Channel!
+//                // The original shader leaves alpha at 0.0. If we do that in Niri,
+//                // the window will be totally invisible. We set it to 1.0 here so
+//                // the black background shows up.
+//                color.a = 1.0;
+//
+//                // Fade the whole effect out as the window finishes closing
+//                return color * niri_clamped_progress;
+//            }
+//        "#
+//    }
+//
+//    horizontal-view-movement {
+//        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+//    }
+//    window-movement {
+//        spring damping-ratio=0.75 stiffness=323 epsilon=0.0001
+//    }
+//    window-resize {
+//        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+//    }
+//    config-notification-open-close {
+//        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+//    }
+//    screenshot-ui-open {
+//        duration-ms 200
+//        curve "ease-out-quad"
+//    }
+//    overview-open-close {
+//        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
+//    }
+//}
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
+
+
+recent-windows {
+    // off
+    debounce-ms 250
+
+    open-delay-ms 50
+
+    highlight {
+        active-color "#c6a0f6ff"
+        urgent-color "#ed8796ff"
+        padding 10
+        corner-radius 3
+    }
+
+    previews {
+        max-height 700
+        max-scale 0.60
+    }
+
+    binds {
+        //Alt+Tab         { next-window; }
+        //Alt+Shift+Tab   { previous-window; }
+        //Alt+grave       { next-window     filter="app-id"; }
+        //Alt+Shift+grave { previous-window filter="app-id"; }
+
+        Mod+Tab         { next-window; }
+        Mod+Shift+Tab   { previous-window; }
+        Mod+Mod5+Tab       { next-window     filter="app-id"; }
+        Mod5+Tab { previous-window filter="app-id"; }
+    }
+}
+
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
