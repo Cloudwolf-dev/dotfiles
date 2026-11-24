@@ -25,11 +25,10 @@ show_cheatsheet = false
 
 # niri: environment.kdl. XDG_CURRENT_DESKTOP is left to the Umbriel session.
 [environment]
-QT_QPA_PLATFORM = "wayland;xcb"
+QT_QPA_PLATFORM = "wayland"
 QT_QPA_PLATFORMTHEME = "qt6ct"
 GTK_THEME = "Adwaita:dark"
 ELECTRON_OZONE_PLATFORM_HINT = "auto"
-XDG_MENU_PREFIX = "plasma-"
 TERMINAL = "kitty"
 
 # ==============================================================================
@@ -283,6 +282,9 @@ action = "overview-open"
 "Mod+Shift+U" = "workspace-move-down"
 "Mod+Shift+I" = "workspace-move-up"
 
+# Toggle overview
+"Mod+W" = "overview-toggle"
+
 # Mouse wheel
 "Mod+Shift+WheelDown" = { action = "workspace-next", cooldown_ms = 150 }
 "Mod+Shift+WheelUp" = { action = "workspace-previous", cooldown_ms = 150 }
@@ -327,6 +329,9 @@ action = "overview-open"
 "Mod+F2" = "workspace-set-layout stacking"
 "Mod+F3" = "workspace-set-layout master"
 "Mod+F4" = "workspace-set-layout dwindle"
+
+#test
+"Mod+Slash" = "window-move-to-output-next"
 # ==============================================================================
 # Window rules (niri: cfg/windowrules.kdl, config.kdl). Later rules win.
 
@@ -343,6 +348,10 @@ default_floating = true
 default_pinned = true
 default_floating_size_px = { width = 480, height = 270 }
 default_position = { x = 32, y = 32, anchor = "bottom_right" }
+
+[[window_rule]]
+match.app_id = "org.kde.okular"
+default_output = "DP-2"
 
 [[window_rule]]
 match.title = ["^Picture in picture$", "^Picture-in-Picture$"]
@@ -377,10 +386,22 @@ match.app_id = ["^kitty$", "^shelly$"]
 default_floating = false
 default_scrolling_extent = 0.33
 
+# Flameshot's settings and upload dialogs float.
 [[window_rule]]
 match.app_id = "^flameshot$"
 default_floating = true
-default_fullscreen = false
+
+# The capture overlay (titled "flameshot") covers the focused output, the same
+# one Umbriel's screenshot portal captures.
+[[window_rule]]
+match.app_id = "^flameshot$"
+match.title = "^flameshot$"
+default_fullscreen = true
+border_width = 0
+corner_radius = 0
+shadow = false
+blur = false
+opacity = 1.0
 
 [[window_rule]]
 match.app_id = "^zen$"
