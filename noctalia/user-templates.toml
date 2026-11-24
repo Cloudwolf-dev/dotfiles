@@ -1,0 +1,12 @@
+[theme.templates.user.vscode_colors_txt]
+input_path = "~/.config/noctalia/templates/vscode-colors"
+output_path = "~/.cache/matugen/vscode-colors"
+
+[theme.templates.user.vscode_colors_json]
+input_path = "~/.config/noctalia/templates/vscode-colors.json"
+output_path = "~/.cache/matugen/vscode-colors.json"
+
+[theme.templates.user.mystrata]
+input_path = "~/.config/noctalia/templates/strata.toml"
+output_path = "$XDG_CONFIG_HOME/strata/themes/noctalia.toml"
+pre_hook = "mkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/strata/themes\""

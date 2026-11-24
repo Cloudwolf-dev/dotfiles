@@ -1,0 +1,4 @@
+[templates.cosmic]
+input_path = '~/.config/noctalia/templates/cosmic_theme.ron'
+output_path = '~/.config/noctalia/themes/matugen_cosmic.theme.ron'
+post_hook = 'python3 ~/.config/noctalia/templates/cosmic_postprocess.py ~/.config/noctalia/themes/matugen_cosmic.theme.ron'

@@ -1,0 +1,40 @@
+{
+  "colorHistory": [
+    "#1E1F20",
+    "#E5DDD4",
+    "#FFFFFF",
+    "#21C063",
+    "#242525",
+    "#242626",
+    "#29141D",
+    "#2C1422"
+  ],
+  "paletteColors": "",
+  "installedLangs": [
+    "afr"
+  ],
+  "transAvailable": false,
+  "selectedOcrLang": "afr",
+  "screenshotPath": "",
+  "videoPath": "",
+  "filenameFormat": "",
+  "detectedRecorder": "wl-screenrec",
+  "recordSkipConfirmation": false,
+  "recordCopyToClipboard": false,
+  "gifMaxSeconds": 30,
+  "resultHex": "",
+  "resultRgb": "",
+  "resultHsv": "",
+  "resultHsl": "",
+  "colorCapturePath": "",
+  "colorCacheBust": 0,
+  "ocrResult": "",
+  "ocrCapturePath": "",
+  "qrResult": "",
+  "qrCapturePath": "",
+  "translateResult": "",
+  "x02ApiKey": "",
+  "x02Expiry": "7d",
+  "shareSkipPopover": false,
+  "searchEngineUrl": "https://www.google.com/search?hl=pt-BR&q="
+}

@@ -1,0 +1,458 @@
+# Umbriel configuration, translated from ~/.config/niri (niri 26.04).
+# Reference: /usr/share/umbriel/config.toml and https://docs.noctalia.dev/umbriel/
+# Check edits with `umbriel config validate`.
+
+# Colors come from Noctalia's built-in "umbriel" template (the counterpart of
+# niri's noctalia.kdl). Optional, so the config still loads before it exists.
+[include.optional]
+files = ["noctalia.toml"]
+
+# ==============================================================================
+# General (niri: spawns.kdl, hotkey-overlay, prefer-no-csd)
+[general]
+autostart = [
+  "wl-paste --type text --watch cliphist store",
+  "wl-paste --type image --watch cliphist store",
+  "noctalia",
+  "time zsh -i -c exit",
+  "XDG_MENU_PREFIX=plasma- kbuildsycoca6 --noincremental",
+  "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1",
+  # The portal survives a session switch with the old XDG_CURRENT_DESKTOP.
+  "systemctl --user restart xdg-desktop-portal",
+]
+# niri: hotkey-overlay { skip-at-startup }
+show_cheatsheet = false
+
+# niri: environment.kdl. XDG_CURRENT_DESKTOP is left to the Umbriel session.
+[environment]
+QT_QPA_PLATFORM = "wayland;xcb"
+QT_QPA_PLATFORMTHEME = "qt6ct"
+GTK_THEME = "Adwaita:dark"
+ELECTRON_OZONE_PLATFORM_HINT = "auto"
+XDG_MENU_PREFIX = "plasma-"
+TERMINAL = "kitty"
+
+# ==============================================================================
+# Outputs (niri: output.kdl)
+[output.eDP-1]
+mode = "1366x768@60.059"
+position = [0, 0]
+scale = 1.0
+transform = "normal"
+
+[output.HDMI-A-1]
+mode = "1920x1080@60"
+scale = 1.0
+transform = "normal"
+
+# ==============================================================================
+# Appearance (niri: layout.kdl focus-ring/shadow, window-rule geometry/shadow)
+[appearance]
+prefer_no_csd = true
+# niri draws a 2 px focus ring and no border.
+border_width = 2
+# niri: global window-rule geometry-corner-radius 4
+corner_radius = 4
+
+[appearance.shadow]
+enabled = true
+softness = 20
+offset_x = 4
+offset_y = 4
+
+# niri: background-effect { noise 0.06; saturation 1.2; }
+[appearance.blur]
+noise = 0.06
+saturation = 1.2
+
+[colors]
+# niri: global window-rule shadow color
+shadow = "#0000009a"
+# ==============================================================================
+# Animation 
+[animation]
+enabled = true
+duration_ms = 250
+curve = "easeout"
+
+[animation.windows_in]
+enabled = true
+curve = "spring:1,200"
+style = "popin"
+scale = 0.5
+
+[animation.windows_out]
+enabled = true
+curve = "spring:1,300"
+style = "popin"
+scale = 0.8
+
+[animation.windows_move]
+enabled = true
+curve = "spring:1,200"
+
+[animation.windows_resize]
+enabled = true
+curve = "spring:1,900"
+
+[animation.windows_opacity]
+enabled = true
+curve = "spring:1,900"
+
+[animation.workspaces]
+style = "slide"
+enabled = true
+curve = "spring:1,800"
+
+[animation.overview]
+enabled = true
+curve = "spring:1,800"
+workspace_curve = "spring:1,1000"
+
+[animation.scratchpad]
+enabled = true
+curve = "spring:1,800"
+dim = 0.8
+blur = false
+
+[animation.dialogs]
+enabled = true
+dim = 0.3
+
+[animation.border]
+enabled = true
+curve = "spring:1,900"
+
+[animation.dim_unfocused]
+enabled = false
+dim = 0.0
+
+[animation.layers]
+enabled = false
+# ==============================================================================
+# Input (niri: input, cursor)
+[input.keyboard]
+layout = "br"
+variant = "abnt2"
+numlock_toggle = true
+
+[input.focus]
+# niri: focus-follows-mouse max-scroll-amount="50%"
+follows_mouse = "sloppy"
+follows_mouse_max_scroll = 50.0
+
+[input.tablet]
+map_to_output = "HDMI-A-1"
+calibration_matrix = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+[input.cursor]
+theme = "Breeze_Light"
+size = 32
+
+# niri: gestures dnd-edge-view-scroll
+[input.drag_edge_scroll]
+trigger_zone = 30
+delay_ms = 100
+max_speed = 1500.0
+
+# ==============================================================================
+# Layout (niri: layout.kdl)
+[layout]
+mode = "scrolling"
+gap = 5
+extent_presets = [0.25, 0.33, 0.5, 0.66, 0.75]
+
+[layout.scrolling]
+center_focused = "never"
+# niri: default-column-width { proportion 1.0; }
+default_extent_fraction = 1.0
+
+# niri: hot-corners {} (top-left opens the overview)
+[hot_corners.top_left]
+enabled = true
+action = "overview-open"
+
+# ==============================================================================
+# Keybinds (niri: cfg/binds.kdl, cfg/binds_v5.kdl, config.kdl)
+# Defining this table replaces Umbriel's built-in binds.
+[keybinds]
+
+# Apps
+"Mod+Return" = { action = "spawn kitty", repeat = false }
+"Mod+E" = "spawn luciole"
+"Mod+Alt+E" = "spawn cosmic-files"
+"Mod+B" = "spawn xdg-open https://about:blank"
+"Mod+Alt+B" = "spawn zen-browser"
+"Mod+Z" = "spawn env ZED_WINDOW_DECORATIONS=server zeditor"
+"Mod+Ctrl+D" = "spawn wayscriber --active"
+"Mod+Shift+M" = "spawn kando -m 'Gamepad Menu'"
+"Mod+C" = "spawn flatpak run org.gnome.Calculator"
+
+# System
+"Mod+Shift+Slash" = "cheatsheet-toggle"
+"Mod+Shift+E" = "session-quit"
+"Mod+Alt+S" = "spawn systemctl suspend"
+# AltGr+P types thorn on ABNT2; Umbriel has no Mod5 modifier.
+"Mod+thorn" = "dpms-off"
+
+# Noctalia
+"Mod+D" = "spawn noctalia msg panel-toggle launcher"
+"Mod+V" = "spawn noctalia msg panel-toggle clipboard"
+"Mod+Alt+W" = "spawn noctalia msg panel-toggle wallpaper"
+"Mod+Period" = "spawn noctalia msg panel-toggle control-center"
+"Mod+Comma" = "spawn noctalia msg settings-toggle"
+"Mod+Escape" = "spawn noctalia msg panel-toggle session"
+"Mod+Ctrl+L" = "spawn noctalia msg session lock"
+"Mod+O" = "spawn noctalia msg plugin alexander/screen-toolkit:service all ocr"
+
+# Audio, media and brightness
+"XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down", allow_when_locked = true }
+"XF86AudioMute" = { action = "spawn noctalia msg volume-mute", allow_when_locked = true, repeat = false }
+"XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down", allow_when_locked = true }
+# AltGr+M and AltGr+P type mu and thorn on ABNT2.
+"mu" = { action = "spawn pactl set-source-mute @DEFAULT_SOURCE@ toggle", repeat = false }
+"thorn" = { action = "spawn playerctl play-pause", repeat = false }
+
+# Screenshots
+"Print" = "spawn flameshot gui"
+"Alt+Print" = "spawn noctalia msg screenshot-fullscreen pick"
+"Ctrl+Print" = "spawn noctalia msg screenshot-fullscreen all"
+# niri: Mod5+Print. Print has no AltGr symbol, so Shift+Print stands in.
+"Shift+Print" = "spawn grim -g \"$(slurp)\" - | satty --filename -"
+
+# Window management
+"Mod+Q" = { action = "window-close", repeat = false }
+"Mod+T" = { action = "column-toggle-tabbed", repeat = false }
+"Mod+Shift+W" = { action = "column-toggle-tabbed", repeat = false }
+"Mod+F" = { action = "window-toggle-maximize", repeat = false }
+"Mod+Ctrl+F" = { action = "window-toggle-maximize-to-edges", repeat = false }
+"Mod+Alt+F" = { action = "window-toggle-fullscreen", repeat = false }
+"Mod+Shift+F" = { action = "window-toggle-floating", repeat = false }
+"Mod+Shift+T" = { action = "window-toggle-floating", repeat = false }
+"Mod+Shift+V" = { action = "window-focus-switch-floating", repeat = false }
+# niri: niri-pull-pip. A pinned window floats above the workspace instead of on it.
+"Mod+P" = { action = "window-toggle-pinned", repeat = false }
+
+# Recent windows (niri: recent-windows Mod+Tab). Umbriel has no MRU switcher;
+# this jumps back to the previously focused window.
+"Mod+Tab" = "window-focus-last"
+
+# Focus
+"Mod+Left" = "window-focus-left"
+"Mod+Right" = "window-focus-right"
+"Mod+Down" = "workspace-next"
+"Mod+Up" = "workspace-previous"
+"Mod+H" = "window-focus-left"
+"Mod+L" = "window-focus-right"
+"Mod+J" = "workspace-next"
+"Mod+K" = "workspace-previous"
+"Mod+Home" = "column-focus-first"
+"Mod+End" = "column-focus-last"
+"Mod+Ctrl+Home" = "column-move-to-first"
+"Mod+Ctrl+End" = "column-move-to-last"
+
+# Monitors
+"Mod+Shift+Left" = "output-focus-left"
+"Mod+Shift+Right" = "output-focus-right"
+"Mod+Shift+Up" = "output-focus-up"
+"Mod+Shift+Down" = "output-focus-down"
+"Mod+Ctrl+Left" = "output-focus-left"
+"Mod+Ctrl+Right" = "output-focus-right"
+"Mod+Alt+Left" = "column-move-to-output-left"
+"Mod+Alt+Down" = "column-move-to-output-down"
+"Mod+Alt+Up" = "column-move-to-output-up"
+"Mod+Alt+Right" = "column-move-to-output-right"
+"Mod+Shift+Ctrl+H" = "column-move-to-output-left"
+"Mod+Shift+Ctrl+J" = "column-move-to-output-down"
+"Mod+Shift+Ctrl+K" = "column-move-to-output-up"
+"Mod+Shift+Ctrl+L" = "column-move-to-output-right"
+
+# Workspaces
+"Mod+Page_Down" = "workspace-next"
+"Mod+Page_Up" = "workspace-previous"
+"Mod+U" = "workspace-next"
+"Mod+I" = "workspace-previous"
+"Mod+Ctrl+Down" = "column-move-to-workspace-next"
+"Mod+Ctrl+Up" = "column-move-to-workspace-previous"
+"Mod+Ctrl+U" = "column-move-to-workspace-next"
+"Mod+Ctrl+I" = "column-move-to-workspace-previous"
+"Mod+Shift+Page_Down" = "workspace-move-down"
+"Mod+Shift+Page_Up" = "workspace-move-up"
+"Mod+Shift+U" = "workspace-move-down"
+"Mod+Shift+I" = "workspace-move-up"
+
+# Mouse wheel
+"Mod+Shift+WheelDown" = { action = "workspace-next", cooldown_ms = 150 }
+"Mod+Shift+WheelUp" = { action = "workspace-previous", cooldown_ms = 150 }
+"Mod+Ctrl+WheelDown" = { action = "column-move-to-workspace-next", cooldown_ms = 150 }
+"Mod+Ctrl+WheelUp" = { action = "column-move-to-workspace-previous", cooldown_ms = 150 }
+"Mod+WheelRight" = "window-focus-right"
+"Mod+WheelLeft" = "window-focus-left"
+"Mod+Ctrl+WheelRight" = "column-move-right"
+"Mod+Ctrl+WheelLeft" = "column-move-left"
+"Mod+WheelDown" = "window-focus-right"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+Ctrl+Shift+WheelDown" = "column-move-right"
+"Mod+Ctrl+Shift+WheelUp" = "column-move-left"
+
+# Column widths (niri binds these to Mod+number, not workspaces)
+"Mod+1" = "window-set-primary-extent 1.0"
+"Mod+2" = "window-set-primary-extent 0.5"
+"Mod+3" = "window-set-primary-extent 0.3333"
+"Mod+4" = "window-set-primary-extent 0.25"
+"Mod+Shift+3" = "window-set-primary-extent 0.666"
+"Mod+Shift+4" = "window-set-primary-extent 0.75"
+
+# Columns and sizing
+"Mod+BracketLeft" = "window-consume-or-expel-left"
+"Mod+BracketRight" = "window-consume-or-expel-right"
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-secondary-extent"
+"Mod+Ctrl+C" = "column-center"
+"Mod+Minus" = "window-modify-primary-extent -0.1"
+"Mod+Equal" = "window-modify-primary-extent +0.1"
+"Mod+Shift+Minus" = "window-modify-secondary-extent -0.1"
+"Mod+Shift+Equal" = "window-modify-secondary-extent +0.1"
+
+#scratchpad
+"Mod+Shift+Space" = "window-move-to-scratchpad"
+"Mod+Space" = "scratchpad-toggle"
+"Mod+Ctrl+Space" = "window-restore-from-scratchpad"
+"Alt+Tab" = "scratchpad-focus-next"
+# ==============================================================================
+# Window rules (niri: cfg/windowrules.kdl, config.kdl). Later rules win.
+
+# niri: global window-rule shadow { on }
+[[window_rule]]
+shadow = true
+
+# Picture-in-Picture (niri: firefox PiP rule; niri-pip-follow kept it on the
+# current workspace, a pinned window floats above every workspace instead)
+[[window_rule]]
+match.app_id = "^firefox$"
+match.title = "^Picture-in-Picture$"
+default_floating = true
+default_pinned = true
+default_floating_size_px = { width = 480, height = 270 }
+default_position = { x = 32, y = 32, anchor = "bottom_right" }
+
+[[window_rule]]
+match.title = ["^Picture in picture$", "^Picture-in-Picture$"]
+default_floating = true
+default_pinned = true
+opacity = 1.0
+
+[[window_rule]]
+match.app_id = "^zoom$"
+default_floating = true
+default_position = { x = 4, y = 4, anchor = "bottom_right" }
+opacity = 1.0
+
+[[window_rule]]
+match.title = "^Picture in picture$"
+default_position = { x = 4, y = 4, anchor = "bottom_right" }
+
+# Blur over live content (niri: background-effect { blur true; xray false; })
+[[window_rule]]
+match.app_id = ["^firefox$", "^kitty$", "^io\\.github\\.lgse\\.Strata$", "^dev\\.noctalia\\.luciole$"]
+blur = true
+blur_optimized = false
+
+# Blur over the wallpaper only (niri: background-effect { blur true; xray true; })
+[[window_rule]]
+match.app_id = ["^dev\\.zed\\.Zed$", "^zed$", "^zen$", "^floorp$"]
+blur = true
+
+# Terminals start at a third of the screen, tiled
+[[window_rule]]
+match.app_id = ["^kitty$", "^shelly$"]
+default_floating = false
+default_scrolling_extent = 0.33
+
+[[window_rule]]
+match.app_id = "^flameshot$"
+default_floating = true
+default_fullscreen = false
+
+[[window_rule]]
+match.app_id = "^zen$"
+default_maximize_to_edges = false
+
+[[window_rule]]
+match.title = ["^DevTools", "^Developer Tools"]
+default_floating = true
+default_floating_size = { width = 0.3, height = 0.5 }
+default_position = { x = 4, y = 4, anchor = "bottom_right" }
+
+[[window_rule]]
+match.app_id = "^org\\.gnome\\."
+corner_radius = 12
+
+# Steam's side windows float; the main "Steam" window stays tiled
+[[window_rule]]
+match.app_id = "^steam$"
+default_floating = true
+
+[[window_rule]]
+match.app_id = "^steam$"
+match.title = "^Steam$"
+default_floating = false
+
+[[window_rule]]
+match.app_id = "^blender$"
+default_fullscreen = false
+default_maximize_to_edges = false
+
+[[window_rule]]
+match.app_id = ["^gnome-control-center$", "^pavucontrol$", "^nm-connection-editor$"]
+default_floating = false
+default_scrolling_extent = 0.5
+
+# Floating utilities
+[[window_rule]]
+match.app_id = [
+  "^org\\.gnome\\.Calculator$",
+  "^gnome-calculator$",
+  "^galculator$",
+  "^blueman-manager$",
+  "^org\\.gnome\\.Nautilus$",
+  "^xdg-desktop-portal$",
+  "^Free Download Manager$",
+]
+default_floating = true
+
+[[window_rule]]
+match.title = "Calculator"
+default_floating = true
+
+# Noctalia's own windows (from Umbriel's starting config)
+[[window_rule]]
+match.app_id = "^dev\\.noctalia\\.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1020, height = 900 }
+
+[[window_rule]]
+match.app_id = "^dev\\.noctalia\\.UmbrielSharePicker$"
+default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
+
+[[window_rule]]
+match.title = "^notificationtoasts_.+_desktop"
+default_position = { x = 0, y = 0, anchor = "bottom_right" }
+default_focused = false
+default_pinned = true
+
+# ==============================================================================
+# Layer rules. Noctalia's bar, panels and OSDs blur what is behind them
+# (from Umbriel's starting config; niri had no equivalent rule).
+[[layer_rule]]
+match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$"
+blur = true
+blur_ignore_alpha = 0.5
+blur_popups = true
+
+[[layer_rule]]
+match.namespace = "^noctalia-(notification|dock|panel|attached-panel|osd)$"
+blur_optimized = false

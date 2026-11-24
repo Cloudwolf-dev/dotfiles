@@ -1,0 +1,35 @@
+(
+    name: "Matugen Noctalia",
+    is_dark: true,
+    spacing: (
+        space_none: 0,
+        space_xxs: 4,
+        space_xs: 8,
+        space_s: 16,
+        space_m: 24,
+        space_l: 32,
+        space_xl: 48,
+        space_xxl: 64,
+    ),
+    corner_radii: (
+        radius_0: 0.0,
+        radius_xs: 4.0,
+        radius_s: 8.0,
+        radius_m: 12.0,
+        radius_l: 16.0,
+        radius_xl: 24.0,
+    ),
+    palette: (
+        accent: rgb({{colors.primary.default.red}}, {{colors.primary.default.green}}, {{colors.primary.default.blue}}),
+        bg_color: rgb({{colors.surface.default.red}}, {{colors.surface.default.green}}, {{colors.surface.default.blue}}),
+        text_color: rgb({{colors.on_surface.default.red}}, {{colors.on_surface.default.green}}, {{colors.on_surface.default.blue}}),
+        neutral_tint: rgb({{colors.surface_variant.default.red}}, {{colors.surface_variant.default.green}}, {{colors.surface_variant.default.blue}}),
+        primary: rgb({{colors.primary.default.red}}, {{colors.primary.default.green}}, {{colors.primary.default.blue}}),
+        primary_container: rgb({{colors.primary_container.default.red}}, {{colors.primary_container.default.green}}, {{colors.primary_container.default.blue}}),
+        secondary: rgb({{colors.secondary.default.red}}, {{colors.secondary.default.green}}, {{colors.secondary.default.blue}}),
+        secondary_container: rgb({{colors.secondary_container.default.red}}, {{colors.secondary_container.default.green}}, {{colors.secondary_container.default.blue}}),
+        destructive: rgb({{colors.error.default.red}}, {{colors.error.default.green}}, {{colors.error.default.blue}}),
+        warning: rgb({{colors.tertiary.default.red}}, {{colors.tertiary.default.green}}, {{colors.tertiary.default.blue}}),
+        success: rgb(0, 200, 100),
+    )
+)
