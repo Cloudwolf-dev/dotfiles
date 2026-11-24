@@ -321,6 +321,12 @@ action = "overview-open"
 "Mod+Space" = "scratchpad-toggle"
 "Mod+Ctrl+Space" = "window-restore-from-scratchpad"
 "Alt+Tab" = "scratchpad-focus-next"
+
+#layout 
+"Mod+F1" = "workspace-set-layout scrolling"
+"Mod+F2" = "workspace-set-layout stacking"
+"Mod+F3" = "workspace-set-layout master"
+"Mod+F4" = "workspace-set-layout dwindle"
 # ==============================================================================
 # Window rules (niri: cfg/windowrules.kdl, config.kdl). Later rules win.
 
