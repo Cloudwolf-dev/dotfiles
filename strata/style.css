@@ -1,0 +1,77 @@
+/* The Noctalia theme makes only the window background translucent. These
+   containers paint their own background over it, which stacks into a
+   near-solid color, so they are cleared to show the window's single
+   translucent layer. Popovers, menus and dialogs keep their solid surface. */
+
+/* Title bar and tabs */
+headerbar,
+.tab-strip,
+.mode-pane-header,
+
+/* Sidebar */
+.sidebar,
+.sidebar-shell,
+.sidebar-scroll,
+.sidebar-scroll viewport,
+
+/* Columns view */
+.columns,
+.directory-column,
+.directory-column scrolledwindow,
+.directory-column viewport,
+.directory-column listview,
+.column-filter,
+.file-list,
+.mode-scroll scrollbar.horizontal,
+.mode-scroll scrollbar.horizontal > range > trough,
+
+/* List and icons views */
+.list-pane,
+.list-headings,
+.mode-list,
+.mode-list viewport,
+.mode-list listview,
+.icons-pane,
+.mode-icons,
+.mode-icons viewport,
+.mode-icons gridview,
+
+/* Preview pane */
+.preview-pane,
+.preview-content,
+.preview-content scrolledwindow,
+.preview-content viewport,
+.preview-text,
+.preview-text text,
+.preview-text border.left,
+.preview-document,
+.preview-document text,
+.preview-virtual-list,
+.preview-virtual-list > row,
+.preview-source-row,
+.preview-source-lines,
+.preview-archive,
+.preview-pdf-list,
+.preview-pdf-list > row,
+.preview-table-interactive > scrolledwindow,
+.preview-table-interactive > scrolledwindow > viewport,
+.preview-document-table,
+.preview-document-table > listview,
+
+/* Footer and the file chooser's panes */
+.shortcut-footer,
+.chooser-details,
+.chooser-actions {
+  background: transparent;
+}
+
+/* The focused column's header was a solid surface fill; keep it marked. */
+.active-column .column-header {
+  background: alpha(@strata_highlight, 0.45);
+}
+
+/* Fades drawn in the solid surface color would show as dark bands. */
+.breadcrumb-fade-left,
+.breadcrumb-fade-right {
+  background: none;
+}

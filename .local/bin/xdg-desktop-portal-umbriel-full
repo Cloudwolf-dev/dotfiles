@@ -1,0 +1,85 @@
+#!/usr/bin/python3 -I
+"""Screenshot portal backend for Umbriel that captures the whole desktop.
+
+Umbriel's own backend captures only the focused output, but Flameshot expects
+the portal to return every output and crops one monitor out of it, so the
+crop came out stretched. Non-interactive screenshots are taken with grim
+across all outputs; interactive ones and PickColor go to Umbriel's backend.
+
+Registered by ~/.local/share/xdg-desktop-portal/portals/umbriel-full.portal
+and selected for Screenshot in ~/.config/xdg-desktop-portal/umbriel-portals.conf.
+"""
+import os
+import tempfile
+
+from gi.repository import Gio, GLib
+
+NAME = "org.freedesktop.impl.portal.desktop.umbriel_full"
+UMBRIEL = "org.freedesktop.impl.portal.desktop.umbriel"
+PATH = "/org/freedesktop/portal/desktop"
+IFACE = "org.freedesktop.impl.portal.Screenshot"
+OUT_DIR = os.path.join(GLib.get_user_runtime_dir(), "xdg-desktop-portal-umbriel-full")
+
+ARGS = (
+    '<arg type="o" direction="in"/><arg type="s" direction="in"/>'
+    '<arg type="s" direction="in"/><arg type="a{sv}" direction="in"/>'
+    '<arg type="u" direction="out"/><arg type="a{sv}" direction="out"/>'
+)
+XML = f"""<node><interface name="{IFACE}">
+<method name="Screenshot">{ARGS}</method>
+<method name="PickColor">{ARGS}</method>
+<property name="AvailableTargets" type="u" access="read"/>
+<property name="version" type="u" access="read"/>
+</interface></node>"""
+
+
+def forward(conn, method, params, invocation):
+    def done(source, result):
+        try:
+            invocation.return_value(source.call_finish(result))
+        except GLib.Error as error:
+            invocation.return_gerror(error)
+
+    conn.call(UMBRIEL, PATH, IFACE, method, params, GLib.VariantType("(ua{sv})"),
+              Gio.DBusCallFlags.NONE, -1, None, done)
+
+
+def capture_all_outputs(invocation):
+    os.makedirs(OUT_DIR, mode=0o700, exist_ok=True)
+    fd, path = tempfile.mkstemp(prefix="screenshot-", suffix=".png", dir=OUT_DIR)
+    os.close(fd)
+
+    def done(process, result):
+        try:
+            process.wait_check_finish(result)
+        except GLib.Error:
+            os.unlink(path)
+            invocation.return_value(GLib.Variant("(ua{sv})", (2, {})))
+            return
+        uri = GLib.Variant("s", Gio.File.new_for_path(path).get_uri())
+        invocation.return_value(GLib.Variant("(ua{sv})", (0, {"uri": uri})))
+
+    Gio.Subprocess.new(["grim", path], Gio.SubprocessFlags.NONE).wait_check_async(None, done)
+
+
+def method_call(conn, sender, path, iface, method, params, invocation):
+    options = params.unpack()[3]
+    if method == "Screenshot" and not options.get("interactive", False):
+        capture_all_outputs(invocation)
+    else:
+        forward(conn, method, params, invocation)
+
+
+def get_property(conn, sender, path, iface, prop):
+    return GLib.Variant("u", 1 if prop == "AvailableTargets" else 2)
+
+
+def on_bus_acquired(conn, name):
+    node = Gio.DBusNodeInfo.new_for_xml(XML)
+    conn.register_object(PATH, node.interfaces[0], method_call, get_property, None)
+
+
+loop = GLib.MainLoop()
+Gio.bus_own_name(Gio.BusType.SESSION, NAME, Gio.BusNameOwnerFlags.NONE,
+                 on_bus_acquired, None, lambda *_: loop.quit())
+loop.run()

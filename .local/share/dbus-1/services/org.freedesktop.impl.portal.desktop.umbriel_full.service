@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.freedesktop.impl.portal.desktop.umbriel_full
+Exec=/home/admin/.local/bin/xdg-desktop-portal-umbriel-full
